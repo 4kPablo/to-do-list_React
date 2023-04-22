@@ -1,11 +1,11 @@
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .ToDoList {
   display: flex;
@@ -17,62 +17,65 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
-    
-    .TaskInput-container {
-      display: flex;
-      justify-content: center;
-      width: 15em;
-      height: 1.5em;
   
-      .TaskInput {
-        border-style: none;
-        flex-grow: 4;
-        padding: 10px;
+  .TaskInput-container {
+    display: flex;
+    justify-content: center;
+    width: 15em;
+    height: 1.5em;
 
-        &:focus {
-          outline: none;
-        }
+    .TaskInput {
+      border-style: none;
+      flex-grow: 4;
+      padding: 10px;
+
+      &:focus {
+        outline: none;
       }
+    }
+
+    button {
+        border-radius: 0;
+        flex-grow: 1;
+        border: none;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+
+  }
   
-      button {
-          border-radius: 0;
-          flex-grow: 1;
-          border: none;
-      }
+  .TaskList {
+    list-style: none;
+    width: 15em;
+    padding: 0;
+  }
 
-      button:hover {
-        cursor: pointer;
-      }
+  .task {
+    cursor: pointer;
+    display: flex;
+    // background-color: blueviolet;
+    padding: 0.2em 0.4em;
+    height: 1.5em;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
 
+    :hover {
+      cursor: pointer;
     }
-    
-    .TaskList {
-      list-style: none;
-      width: 15em;
-      padding: 0;
-    }
-    
-    li {
-      display: flex;
-      // background-color: blueviolet;
-      padding: 0.2em 0.4em;
-      // margin-top: 0.2em;
-      height: 1.5em;
-      text-align: center;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-
-      :hover {
-        cursor: pointer;
-      }
-    }
+  }
+  .taskCheckbox {
+    pointer-events: none;
+  }
 }
 
 .done {
-  background-color: red;
+  text-decoration: line-through;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
