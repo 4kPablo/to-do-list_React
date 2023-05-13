@@ -1,43 +1,83 @@
-import { IoMdSquareOutline } from "react-icons/io";
-import { IoMdCheckboxOutline } from "react-icons/io";
+import { IoMdSquareOutline as NonCheckedBox } from "react-icons/io";
+import { IoMdCheckboxOutline as CheckedBox } from "react-icons/io";
+import { useState } from "react";
+// import CloseBtn from "./CloseBtn";
+import { IoIosClose as CloseBtn } from "react-icons/io";
 import TaskInput from "./TaskInput";
 
 function ToDoList() {
+  const [tasks, setTasks] = useState([]);
+  const [isHovering, setIsHovering] = useState(false);
+
+  function Task({ id, text, isDone, completeTask, handleMouseOver, handleMouseOut }) {
+    
+    return (
+      <li
+        className={ isDone ? "task done" : "task"}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+        >
+
+        {text}
+
+        <NonCheckedBox
+          className={ isDone ? "checkbox done hidden" : "checkbox"} onClick={() => completeTask(id)}
+        />
+
+        <CheckedBox
+          className={ isDone ? "checkbox done" : "checkbox hidden"} onClick={() => completeTask(id)}
+        />
+
+        {isHovering && <CloseBtn className="CloseBtn" onClick={() => deleteTask(id)} />} {/* Si isHovering es true, mostrar <CloseBtn/> */}
+
+      </li>
+    )
+  }
+
+  const deleteTask = (id) => {
+    setTasks(tasks.filter(task => task.id !== id))
+  }
+
+  const completeTask = (id) =>  {
+    setTasks(tasks.map(task => {
+      if (task.id === id) {task.isDone = !task.isDone}
+      return task;
+    }))
+  }
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  }
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  }
+
   return (
     <div className="ToDoList">
       <h1>To do list</h1>
 
       <div className="TaskInput-container">
-        <TaskInput />
+        <TaskInput tasks={tasks} setTasks={setTasks}/>
       </div>
 
       <ul className="TaskList">
-        <Task content="Desayunar" isDone={true} clickHandler={clickHandler} />
-        <Task content="Limpiar la ropa" isDone={false} clickHandler={clickHandler} />
-        <Task content="Estudiar" isDone={false} clickHandler={clickHandler} />
+        {tasks.map((task) => {
+          return (
+            <Task
+              id={task.id}
+              key={task.id}
+              text={task.text}
+              isDone={task.isDone}
+              completeTask={completeTask}
+              handleMouseOver={handleMouseOver}
+              handleMouseOut={handleMouseOut}
+            />
+          )
+        })}
       </ul>
     </div>
-  );
+  )
 }
-
-
-
-function Task({ content, clickHandler, isDone }) {
-  return (
-    <div className={ isDone ? 'task done' : 'task'} onClick={clickHandler}>
-      {content}
-      {<IoMdSquareOutline className={ isDone ? 'taskCheckbox done hidden' : 'taskCheckbox'} />}
-      {<IoMdCheckboxOutline className={ isDone ? 'taskCheckbox done' : 'taskCheckbox hidden'} />}
-    </div>
-  );
-}
-
-const clickHandler = () => {
-  window.onclick = (e) => {
-    e.target.classList.toggle("done");
-    e.target.childNodes[1].classList.toggle("hidden");
-    e.target.childNodes[2].classList.toggle("hidden");
-  };
-};
 
 export default ToDoList;

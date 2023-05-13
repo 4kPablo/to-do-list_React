@@ -52,10 +52,14 @@ body {
     padding: 0;
   }
 
+  
+
   .task {
     cursor: pointer;
+    position: relative;
+    // background-color: rebeccapurple;
     display: flex;
-    // background-color: blueviolet;
+    color: #888;
     padding: 0.2em 0.4em;
     height: 1.5em;
     text-align: center;
@@ -63,12 +67,28 @@ body {
     align-items: center;
     user-select: none;
 
+    &:nth-child(1) {
+      color: #eee;
+    }
+  
+    &:nth-child(2) {
+      color: #ccc;
+    }
+  
+    &:nth-child(3) {
+      color: #aaa;
+    }
+
     :hover {
       cursor: pointer;
     }
   }
-  .taskCheckbox {
-    pointer-events: none;
+
+  .CloseBtn {
+    position: absolute;
+    // z-index: 2;
+    right: -1em;
+    // background-color: red;
   }
 }
 
